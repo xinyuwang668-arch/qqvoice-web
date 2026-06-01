@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>QQ语音转换器</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    text-align:center;
+    margin-top:50px;
+}
+
+#drop-zone{
+    width:500px;
+    height:200px;
+
+    margin:auto;
+
+    border:3px dashed #888;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+
+    cursor:pointer;
+}
+
+button{
+    margin-top:20px;
+    padding:10px 30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>QQ语音转换器</h1>
+
+<form
+    action="/convert"
+    method="post"
+    enctype="multipart/form-data">
+
+    <div id="drop-zone">
+        拖拽 SILK 文件到这里
+    </div>
+
+    <input
+        type="file"
+        id="fileInput"
+        name="file"
+        multiple
+        hidden>
+
+    <br>
+
+    <button type="submit">
+        开始转换
+    </button>
+
+</form>
+
+<script>
+
+const dropZone =
+    document.getElementById("drop-zone");
+
+const fileInput =
+    document.getElementById("fileInput");
+
+dropZone.addEventListener(
+    "click",
+    () => fileInput.click()
+);
+
+dropZone.addEventListener(
+    "dragover",
+    e => {
+
+        e.preventDefault();
+
+        dropZone.style.background =
+            "#eeeeee";
+    }
+);
+
+dropZone.addEventListener(
+    "dragleave",
+    () => {
+
+        dropZone.style.background =
+            "";
+    }
+);
+
+dropZone.addEventListener(
+    "drop",
+    e => {
+
+        e.preventDefault();
+
+        dropZone.style.background =
+            "";
+
+        fileInput.files =
+            e.dataTransfer.files;
+
+        dropZone.innerHTML =
+            `${e.dataTransfer.files.length} 个文件已选择`;
+    }
+);
+
+</script>
+
+</body>
+</html>
